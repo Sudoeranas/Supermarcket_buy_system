@@ -15,7 +15,7 @@ fclose(f);
 //printf("\n--->lu N=%d",N);
 return N;
 }
-
+//test
 void convertirNenChaine4(int N,char *N4) //convertit l'int N en une chaine de 4 caracteres
 { // si N=1234 alors N4 sera égal à "1234"
 int m,c,d,u;
