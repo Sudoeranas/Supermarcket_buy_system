@@ -107,7 +107,7 @@ void lireCommande(char nomcommande[20])
         do
         {
             strcpy(tab_commandes[cpt], donnee);
-            //printf("%s", donnee);
+            printf("%s", donnee);
             fprintf(facture,"%s",tab_commandes[cpt]);
             cpt++;
         } while (fgets(donnee, 400, commande));
