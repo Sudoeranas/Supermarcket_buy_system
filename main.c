@@ -11,6 +11,7 @@ int lireProchaineCommande() // pour lire l'int contenu dans nextFact
 	int N;
 	f = fopen("nextFact", "r");
 	fread(&N, sizeof(int), 1, f);
+
 	fclose(f);
 	// printf("\n--->lu N=%d",N);
 	return N;
@@ -37,7 +38,7 @@ void convertirNenChaine4(int N, char *N4) // convertit l'int N en une chaine de 
 	N4[4] = '\0';
 }
 
-void lireLesCommandes() // cette fonction ouvre tous les fichiers commandeXXX.txt avec XXXX démarrant à N
+void lireLesCommandes() // cette fonction ouvre tous les fichiers commandeXXXX.txt avec XXXX démarrant à N
 {
 	FILE *ficCommande = NULL;
 	int FINI = 0;
@@ -60,7 +61,7 @@ void lireLesCommandes() // cette fonction ouvre tous les fichiers commandeXXX.tx
 		if (ficCommande != NULL)
 		{ // le fichier commandeNNNN.txt existe
 			printf("\n fichier %s present", nomCommande);
-			// lireCommande(nomCommande); // à vous de coder cette fonction lors de ce TP9
+			lireCommande(nomCommande); // à vous de coder cette fonction lors de ce TP10
 			fclose(ficCommande);
 		}
 		else
@@ -77,17 +78,52 @@ void lireLesCommandes() // cette fonction ouvre tous les fichiers commandeXXX.tx
 	} while (FINI == 0);
 }
 
+void lireCommande(char nomcommande[20])
+{
+    FILE *commande;
+    FILE *facture;
+    FILE *produits;
+    int x, y, cpt = 0;
+    char NNNN[20], nomfic[25], nomfac[25], nomclient[25], donnee[400], tab_commandes[50][50];
+    int j = strlen(nomcommande);
+    for (int i = 0; i < j; i++)
+    {
+        if ((nomcommande[i] >= '0') && (nomcommande[i] <= '9'))
+            NNNN[i] = nomcommande[i];
+    }
+
+    strcpy(nomfic, "commandes/");
+    strcpy(nomfac, "factures/facture");
+    // printf("le fichier nomfic est : %s", nomfic);
+    strcat(nomfic, nomcommande);
+    strcat(nomfac, NNNN);
+    strcat(nomfac, ".txt");
+    // printf("la commande qui va être traitée est : %s \n", nomfic);
+    commande = fopen(nomfic, "r");
+    facture = fopen(nomfac, "w+");
+    produits = fopen("produits.txt", "r");
+    if (commande != NULL)
+    {
+        do
+        {
+            strcpy(tab_commandes[cpt], donnee);
+            //printf("%s", donnee);
+            fprintf(facture,"%s",tab_commandes[cpt]);
+            cpt++;
+        } while (fgets(donnee, 400, commande));
+    }
+}
+
 int main()
 {
-	// creation d un fichier d'un seul int nommé nextFact et contenant l'int 1
-	//  code à utiliser pour réinitialiser nextFact à 1 si besoin au cours du TP
+	// creation d'un fichier d'un seul int nommé nextFact et contenant l'int 1
+	// code à utiliser pour réinitialiser nextFact à 1 si besoin au cours du TP
 
-	/*
-	FILE *f;int N=1;
-	f=fopen("nextFact","w");
-	fwrite(&N,1,sizeof(int),f);
+	FILE *f;
+	int N = 1;
+	f = fopen("nextFact", "w");
+	fwrite(&N, 1, sizeof(int), f);
 	fclose(f);
-	*/
 
 	// PARTIE 1 du TP : sans Gestion de stock
 	lireLesCommandes(); // lecture de tous les fichiers commandeXXX.txt (fichiers non traités jusqu'ici)
