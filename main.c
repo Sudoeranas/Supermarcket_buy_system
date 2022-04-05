@@ -84,7 +84,7 @@ T_Produit recherchereference(int ref)
 	produits = fopen("produits.txt", "r");
 	do
 	{
-		fscanf("%d %s %f", &result.reference, &result.libelle, &result.prixU);
+		fscanf(produits, "%d %s %f", &result.reference, &result.libelle, &result.prixU);
 		if (ref == result.reference)
 		{
 			return result;
@@ -113,7 +113,7 @@ void lireCommande(char nomcommande[20])
 	commande = fopen(nomcommande, "r");
 	if (commande != NULL)
 	{
-		printf("---------------%s---------------\n", commande);
+		printf("---------------%s---------------\n", nomcommande);
 		fscanf(commande, "%s", NOM);
 		i++;
 		printf("%s\n", NOM);
@@ -130,8 +130,8 @@ void lireCommande(char nomcommande[20])
 			resultat = qt * bababoi.prixU;
 			printf("%d %s  :  %d", qt, bababoi.libelle, resultat);
 			somme += resultat;
-		} while (!feof(nomcommande));
-		printf("TOTAL de Votre commande : %d", somme);
+		} while (!feof(commande));
+		printf("TOTAL de Votre commande : %f", somme);
 	}
 	else
 	{
