@@ -100,8 +100,7 @@ void lireCommande(char nomcommande[20])
 	commande = fopen(nomcommande, "r");
 	if (commande != NULL)
 	{
-
-		printf("%s\n", commande);
+		printf("---------------%s---------------\n", commande);
 		fscanf(commande, "%s", NOM);
 		i++;
 		printf("%s\n", NOM);
@@ -114,6 +113,7 @@ void lireCommande(char nomcommande[20])
 		{
 			fscanf("%d %d", ref, qt);
 			bababoi = recherchereference(ref);
+			printf("C");
 		}
 
 		while (!feof(nomcommande));
