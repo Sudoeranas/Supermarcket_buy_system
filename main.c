@@ -12,7 +12,7 @@ int lireProchaineCommande() // pour lire l'int contenu dans nextFact
 	fread(&N, sizeof(int), 1, f);
 
 	fclose(f);
-	//printf("\n--->lu N=%d", N);
+	// printf("\n--->lu N=%d", N);
 	return N;
 }
 // test
@@ -104,12 +104,12 @@ void lireCommande(char nomcommande[20])
 	char libelle[TAILLE] = "";
 	char NNNN[5];
 	int i = 0, ref = 0, qt = 0;
-	float prix, prixtotal = 0, somme = 0, resultat = 0;
+	float prix, somme = 0, resultat = 0;
 	strcpy(fichier, "./factures/facture");
 	convertirNenChaine4(N, NNNN);
 	strcat(fichier, NNNN);
 	strcat(fichier, ".txt");
-	//printf("voila notre nom de fac %s", fichier);//DEBUG
+	printf("\t\nvoila notre nom de fac %s \t\n", fichier);//DEBUG
 	facture = fopen(fichier, "w");
 	commande = fopen(nomcommande, "r");
 	if (commande != NULL)
@@ -118,18 +118,17 @@ void lireCommande(char nomcommande[20])
 		fscanf(commande, "%s", NOM);
 		i++;
 		printf("%s\n", NOM);
-		prixtotal = 0;
-		if (commande != NULL)
-		{
-			fprintf(facture, "Client : %s", NOM);
-			printf("Client : %s \n", NOM);
-		}
+
+		printf("Client : %s \n", NOM);
+		fprintf(facture, "Client : %s", NOM);
+
 		do
 		{
 			fscanf(commande, "%d %d", &ref, &qt);
 			bababoi = recherchereference(ref);
 			resultat = qt * bababoi.prixU;
 			printf("%d %s  :  %f \n", qt, bababoi.libelle, resultat);
+			fprintf(facture, "%d %s  :  %f \n", qt, bababoi.libelle, resultat);
 
 			somme += resultat;
 		} while (!feof(commande));
@@ -140,6 +139,7 @@ void lireCommande(char nomcommande[20])
 		printf("Erreur ouverture fichier \n");
 	}
 	fclose(commande);
+	fclose(facture);
 }
 
 int main()
