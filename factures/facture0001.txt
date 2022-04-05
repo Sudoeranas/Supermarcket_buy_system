@@ -1,3 +1,5 @@
-Client : BRIANT15 boite_punaises  :  52.500000 
-10 boite_trombones  :  41.000000 
-10 boite_100enveloppes11*13  :  88.000000 
+Client : DUPONT10 crayon  :  12.000000 
+25 agrafeuse  :  140.000000 
+35 ramette_feuillesA4  :  346.500000 
+60 boite_100enveloppes11*21  :  522.000000 
+50 boite_100enveloppes30*21  :  735.000000 

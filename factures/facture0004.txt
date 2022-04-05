@@ -1,0 +1,3 @@
+Client : BRIANT15 boite_punaises  :  52.500000 
+10 boite_trombones  :  41.000000 
+10 boite_100enveloppes11*13  :  88.000000 

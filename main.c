@@ -60,7 +60,7 @@ void lireLesCommandes() // cette fonction ouvre tous les fichiers commandeXXXX.t
 		if (ficCommande != NULL)
 		{ // le fichier commandeNNNN.txt existe
 			printf("\n fichier %s present", nomCommande);
-			lireCommande(nomCommande); // à vous de coder cette fonction lors de ce TP10
+			lireCommande(nomCommande, NNNN); // à vous de coder cette fonction lors de ce TP10
 			fclose(ficCommande);
 		}
 		else
@@ -92,7 +92,7 @@ T_Produit recherchereference(int ref)
 	} while (!feof(produits));
 }
 
-void lireCommande(char nomcommande[20])
+void lireCommande(char nomcommande[20], char NNNN[5])
 {
 	FILE *commande;
 	char fichier[TAILLE];
@@ -102,11 +102,9 @@ void lireCommande(char nomcommande[20])
 	int N = lireProchaineCommande();
 	char NOM[TAILLE] = "";
 	char libelle[TAILLE] = "";
-	char NNNN[5];
 	int i = 0, ref = 0, qt = 0;
 	float prix, somme = 0, resultat = 0;
 	strcpy(fichier, "./factures/facture");
-	convertirNenChaine4(N, NNNN);
 	strcat(fichier, NNNN);
 	strcat(fichier, ".txt");
 	printf("\t\nvoila notre nom de fac %s \t\n", fichier);//DEBUG
@@ -129,6 +127,7 @@ void lireCommande(char nomcommande[20])
 			resultat = qt * bababoi.prixU;
 			printf("%d %s  :  %f \n", qt, bababoi.libelle, resultat);
 			fprintf(facture, "%d %s  :  %f \n", qt, bababoi.libelle, resultat);
+			//fprintf(fichier, "%d %s  (PU=%.2f€)  :: %.2f€\n", qt, libelle, prix, resultat);
 
 			somme += resultat;
 		} while (!feof(commande));
