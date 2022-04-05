@@ -98,6 +98,7 @@ void lireCommande(char nomcommande[20], char NNNN[5])
 	char fichier[TAILLE];
 	FILE *facture;
 	FILE *produits;
+	FILE *stock;
 	T_Produit bababoi;
 	int N = lireProchaineCommande();
 	char NOM[TAILLE] = "";
@@ -110,6 +111,7 @@ void lireCommande(char nomcommande[20], char NNNN[5])
 	printf("\t\nvoila notre nom de fac %s \t\n", fichier);//DEBUG
 	facture = fopen(fichier, "w");
 	commande = fopen(nomcommande, "r");
+	stock=fopen("stocks.txt", "w");
 	if (commande != NULL)
 	{
 		printf("---------------%s---------------\n", nomcommande);
@@ -126,7 +128,6 @@ void lireCommande(char nomcommande[20], char NNNN[5])
 			bababoi = recherchereference(ref);
 			resultat = qt * bababoi.prixU;
 			printf("%d %s  :  %f \n", qt, bababoi.libelle, resultat);
-			//fprintf(facture, "%d %s  :  %f \n", qt, bababoi.libelle, resultat);
 			fprintf(facture, "%d %s  (PU=%.2f€)  :: %.2f€\n", qt, bababoi.libelle, bababoi.prixU, resultat);
 
 			somme += resultat;
