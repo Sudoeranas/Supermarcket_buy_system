@@ -77,6 +77,21 @@ void lireLesCommandes() // cette fonction ouvre tous les fichiers commandeXXXX.t
 	} while (FINI == 0);
 }
 
+T_Produit recherchereference(int ref)
+{
+	FILE *produits;
+	T_Produit result;
+	produits = fopen("produits.txt", "r");
+	do
+	{
+		fscanf("%d %s %f", &result.reference, &result.libelle, &result.prixU);
+		if (ref == result.reference)
+		{
+			return result;
+		}
+	} while (!feof("produits.txt"));
+}
+
 void lireCommande(char nomcommande[20])
 {
 	FILE *commande;
@@ -113,7 +128,7 @@ void lireCommande(char nomcommande[20])
 			fscanf("%d %d", ref, qt);
 			bababoi = recherchereference(ref);
 			resultat = qt * bababoi.prixU;
-			printf("%d %s  :  %f", qt, bababoi.libelle, resultat);
+			printf("%d %s  :  %d", qt, bababoi.libelle, resultat);
 			somme += resultat;
 		} while (!feof(nomcommande));
 		printf("TOTAL de Votre commande : %d", somme);
@@ -123,21 +138,6 @@ void lireCommande(char nomcommande[20])
 		printf("Erreur ouverture fichier \n");
 	}
 	fclose(commande);
-}
-
-T_Produit recherchereference(int ref)
-{
-	FILE *produits;
-	T_Produit result;
-	produits = fopen("produits.txt", "r");
-	do
-	{
-		fscanf("%d %s %f", &result.reference, &result.libelle, &result.prixU);
-		if (ref == result.reference)
-		{
-			return result;
-		}
-	} while (!feof("produits.txt"));
 }
 
 int main()
