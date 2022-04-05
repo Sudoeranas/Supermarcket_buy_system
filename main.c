@@ -96,19 +96,35 @@ void lireCommande(char nomcommande[20])
 	strcat(facture, ".txt");
 	facture = fopen(facture, "w");
 	commande = fopen(nomcommande, "r");
-	do
+	if (commande != NULL)
 	{
+
 		printf("%s\n", commande);
 		fscanf(commande, "%s", NOM);
 		i++;
 		printf("%s\n", NOM);
 		prixtotal = 0;
-		if (commande != NULL){
-			fprintf(facture);
+		if (commande != NULL)
+		{
+			fprintf(facture, "CLIENT : %s", NOM);
+		}
+		do
+		{
+			fscanf("%d %d",ref,qt);
+
 		}
 
-	} while (!feof(nomcommande));
+		while (!feof(nomcommande));
+	}
+	else
+	{
+		printf("Erreur ouverture fichier");
+	}
 	fclose(commande);
+}
+
+void recherchereference(){
+	
 }
 
 int main()
