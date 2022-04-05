@@ -84,17 +84,18 @@ T_Produit recherchereference(int ref)
 	produits = fopen("produits.txt", "r");
 	do
 	{
-		fscanf(produits, "%d %s %f", &result.reference, &result.libelle, &result.prixU);
+		fscanf(produits, "%d %s %f", &result.reference, result.libelle, &result.prixU);
 		if (ref == result.reference)
 		{
 			return result;
 		}
-	} while (!feof("produits.txt"));
+	} while (!feof(produits));
 }
 
 void lireCommande(char nomcommande[20])
 {
 	FILE *commande;
+	char fichier[TAILLE];
 	FILE *facture;
 	FILE *produits;
 	T_Produit bababoi;
@@ -104,12 +105,12 @@ void lireCommande(char nomcommande[20])
 	char NNNN[5];
 	int i = 0, ref = 0, qt = 0, resultat = 0;
 	float prix, prixtotal = 0, somme = 0;
-	strcpy(facture, "./factures/facture");
+	strcpy(fichier, "./factures/facture");
 	convertirNenChaine4(N, NNNN);
-	strcat(facture, N);
-	strcat(facture, ".txt");
-	// DEBUG printf("voila notre nom de fac %s", facture);
-	facture = fopen(facture, "w");
+	strcat(fichier, NNNN);
+	strcat(fichier, ".txt");
+	printf("voila notre nom de fac %s", fichier);
+	facture = fopen(fichier, "w");
 	commande = fopen(nomcommande, "r");
 	if (commande != NULL)
 	{
@@ -121,11 +122,11 @@ void lireCommande(char nomcommande[20])
 		if (commande != NULL)
 		{
 			fprintf(facture, "Client : %s", NOM);
-			printf("Client : %s, NOM");//
+			//printf("Client : %s, NOM");//
 		}
 		do
 		{
-			fscanf("%d %d", ref, qt);
+			fscanf(commande, "%d %d", &ref, &qt);
 			bababoi = recherchereference(ref);
 			resultat = qt * bababoi.prixU;
 			printf("%d %s  :  %d", qt, bababoi.libelle, resultat);
