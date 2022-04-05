@@ -87,14 +87,24 @@ void lireCommande(char nomcommande[20])
 	char commande[TAILLE];
 	char NOM[TAILLE] = "";
 	char libelle[TAILLE] = "";
+	char NNNN[5];
+	int i = 0, ref = 0, qt = 0;
+	float prix, prixtotal = 0;
 	strcpy(facture, "./factures/facture");
+	convertirNenChaine4(N, NNNN);
 	strcat(facture, N);
 	strcat(facture, ".txt");
 	facture = fopen(facture, "w");
 	commande = fopen(nomcommande, "r");
 	do
 	{
+		printf("%s\n", commande);
+		fscanf(commande, "%s", NOM);
+		i++;
+		printf("%s\n", NOM);
+		prixtotal = 0;
 
+		
 	} while (!feof(nomcommande));
 	fclose(commande);
 }
