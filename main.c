@@ -84,8 +84,6 @@ void lireCommande(char nomcommande[20])
 	FILE *produits;
 	T_Produit bababoi;
 	int N = lireProchaineCommande();
-	char facture[TAILLE];
-	char commande[TAILLE];
 	char NOM[TAILLE] = "";
 	char libelle[TAILLE] = "";
 	char NNNN[5];
