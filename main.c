@@ -118,7 +118,7 @@ void lireCommande(char nomcommande[20], char NNNN[5])
 		printf("%s\n", NOM);
 
 		printf("Client : %s \n", NOM);
-		fprintf(facture, "Client : %s", NOM);
+		fprintf(facture, "Client : %s \n", NOM);
 
 		do
 		{
@@ -126,8 +126,8 @@ void lireCommande(char nomcommande[20], char NNNN[5])
 			bababoi = recherchereference(ref);
 			resultat = qt * bababoi.prixU;
 			printf("%d %s  :  %f \n", qt, bababoi.libelle, resultat);
-			fprintf(facture, "%d %s  :  %f \n", qt, bababoi.libelle, resultat);
-			//fprintf(fichier, "%d %s  (PU=%.2f€)  :: %.2f€\n", qt, libelle, prix, resultat);
+			//fprintf(facture, "%d %s  :  %f \n", qt, bababoi.libelle, resultat);
+			fprintf(facture, "%d %s  (PU=%.2f€)  :: %.2f€\n", qt, bababoi.libelle, bababoi.prixU, resultat);
 
 			somme += resultat;
 		} while (!feof(commande));

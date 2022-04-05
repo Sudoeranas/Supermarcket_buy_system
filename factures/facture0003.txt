@@ -1,3 +1,4 @@
-Client : DUPONT45 boite_punaises  :  157.500000 
-15 boite_trombones  :  61.500000 
-80 boite_100enveloppes11*13  :  704.000000 
+Client : DUPONT 
+45 boite_punaises  (PU=3.50€)  :: 157.50€
+15 boite_trombones  (PU=4.10€)  :: 61.50€
+80 boite_100enveloppes11*13  (PU=8.80€)  :: 704.00€
