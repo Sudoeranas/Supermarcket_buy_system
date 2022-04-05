@@ -12,7 +12,7 @@ int lireProchaineCommande() // pour lire l'int contenu dans nextFact
 	fread(&N, sizeof(int), 1, f);
 
 	fclose(f);
-	printf("\n--->lu N=%d", N);
+	//printf("\n--->lu N=%d", N);
 	return N;
 }
 // test
@@ -65,7 +65,7 @@ void lireLesCommandes() // cette fonction ouvre tous les fichiers commandeXXXX.t
 		}
 		else
 		{
-			printf("\n toutes les commandes presentes ont ete traitees.");
+			printf("\n toutes les commandes presentes ont ete traitees. \n");
 			FILE *f = fopen("nextFact", "w"); // on va ecrire la valeur de N dans enxtFact
 			// pour
 			fwrite(&N, 1, sizeof(int), f);
@@ -109,7 +109,7 @@ void lireCommande(char nomcommande[20])
 	convertirNenChaine4(N, NNNN);
 	strcat(fichier, NNNN);
 	strcat(fichier, ".txt");
-	printf("voila notre nom de fac %s", fichier);//DEBUG
+	//printf("voila notre nom de fac %s", fichier);//DEBUG
 	facture = fopen(fichier, "w");
 	commande = fopen(nomcommande, "r");
 	if (commande != NULL)
@@ -121,8 +121,8 @@ void lireCommande(char nomcommande[20])
 		prixtotal = 0;
 		if (commande != NULL)
 		{
-			//fprintf(facture, "Client : %s", NOM);
-			printf("Client : %s", NOM);
+			fprintf(facture, "Client : %s", NOM);
+			printf("Client : %s \n", NOM);
 		}
 		do
 		{
@@ -133,7 +133,7 @@ void lireCommande(char nomcommande[20])
 
 			somme += resultat;
 		} while (!feof(commande));
-		printf("TOTAL de Votre commande : %f", somme);
+		printf("TOTAL de Votre commande : %f \n\n", somme);
 	}
 	else
 	{
