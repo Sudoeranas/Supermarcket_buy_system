@@ -113,10 +113,8 @@ void lireCommande(char nomcommande[20])
 		{
 			fscanf("%d %d", ref, qt);
 			bababoi = recherchereference(ref);
-			printf("C");
-		}
-
-		while (!feof(nomcommande));
+			printf("%d %s  :  %f", qt,);
+		}while (!feof(nomcommande));
 	}
 	else
 	{
