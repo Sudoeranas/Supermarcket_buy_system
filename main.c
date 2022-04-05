@@ -1,5 +1,4 @@
 ////////////////////////// TP10
-//ZEBI
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -86,10 +85,19 @@ void lireCommande(char nomcommande[20])
 	int N = lireProchaineCommande();
     char facture[TAILLE];
 	char commande[TAILLE];
+	char NOM[TAILLE] = "";
+	char libelle[TAILLE] = "";
 	strcpy(facture,"./factures/facture");
 	strcat(facture,N);
 	strcat(facture,".txt");
 	facture = fopen(facture, "w");
+	commande= fopen(nomcommande, "r");
+	do
+	{
+		
+		
+	} while (!feof(nomcommande));
+	fclose(commande);
 	
 }
 
