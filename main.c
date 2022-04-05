@@ -108,7 +108,7 @@ void lireCommande(char nomcommande[20], char NNNN[5])
 	strcpy(fichier, "./factures/facture");
 	strcat(fichier, NNNN);
 	strcat(fichier, ".txt");
-	printf("\t\nvoila notre nom de fac %s \t\n", fichier);//DEBUG
+	//printf("\t\nvoila notre nom de fac %s \t\n", fichier);//DEBUG
 	facture = fopen(fichier, "w");
 	commande = fopen(nomcommande, "r");
 	stock=fopen("stocks.txt", "w");
@@ -133,6 +133,7 @@ void lireCommande(char nomcommande[20], char NNNN[5])
 			somme += resultat;
 		} while (!feof(commande));
 		printf("TOTAL de Votre commande : %f \n\n", somme);
+		fprintf(facture,"\n\t\tTOTAL: %f", somme);
 	}
 	else
 	{
