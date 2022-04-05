@@ -89,8 +89,8 @@ void lireCommande(char nomcommande[20])
 	char NOM[TAILLE] = "";
 	char libelle[TAILLE] = "";
 	char NNNN[5];
-	int i = 0, ref = 0, qt = 0;
-	float prix, prixtotal = 0;
+	int i = 0, ref = 0, qt = 0, resultat = 0;
+	float prix, prixtotal = 0, somme = 0;
 	strcpy(facture, "./factures/facture");
 	convertirNenChaine4(N, NNNN);
 	strcat(facture, N);
@@ -114,8 +114,11 @@ void lireCommande(char nomcommande[20])
 		{
 			fscanf("%d %d", ref, qt);
 			bababoi = recherchereference(ref);
-			printf("%d %s  :  %f", qt,);
-		}while (!feof(nomcommande));
+			resultat = qt * bababoi.prixU;
+			printf("%d %s  :  %f", qt, bababoi.libelle, resultat);
+			somme += resultat;
+		} while (!feof(nomcommande));
+		printf("TOTAL de Votre commande : %d", somme);
 	}
 	else
 	{
@@ -135,7 +138,6 @@ T_Produit recherchereference(int ref)
 		if (ref == result.reference)
 		{
 			return result;
-			
 		}
 	} while (!feof("produits.txt"));
 }
