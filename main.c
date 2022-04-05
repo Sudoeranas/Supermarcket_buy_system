@@ -103,8 +103,10 @@ void lireCommande(char nomcommande[20])
 		i++;
 		printf("%s\n", NOM);
 		prixtotal = 0;
+		if (commande != NULL){
+			fprintf(facture);
+		}
 
-		
 	} while (!feof(nomcommande));
 	fclose(commande);
 }
