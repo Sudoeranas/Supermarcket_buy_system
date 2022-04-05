@@ -55,7 +55,6 @@ void lireLesCommandes() // cette fonction ouvre tous les fichiers commandeXXXX.t
 		strcat(nomCommande, ".txt");
 
 		printf("\n traitement de  %s", nomCommande);
-
 		ficCommande = fopen(nomCommande, "rt");
 		if (ficCommande != NULL)
 		{ // le fichier commandeNNNN.txt existe
@@ -72,7 +71,6 @@ void lireLesCommandes() // cette fonction ouvre tous les fichiers commandeXXXX.t
 			fclose(f);
 			FINI = 1;
 		}
-
 		N++;
 	} while (FINI == 0);
 }
@@ -92,6 +90,10 @@ T_Produit recherchereference(int ref)
 	} while (!feof(produits));
 }
 
+void removestock(int ref, int qte)
+{
+}
+
 void lireCommande(char nomcommande[20], char NNNN[5])
 {
 	FILE *commande;
@@ -100,47 +102,44 @@ void lireCommande(char nomcommande[20], char NNNN[5])
 	FILE *produits;
 	FILE *stock;
 	T_Produit bababoi;
-	int N = lireProchaineCommande();
 	char NOM[TAILLE] = "";
 	char libelle[TAILLE] = "";
-	int i = 0, ref = 0, qt = 0;
+	int ref = 0, qt = 0;
 	float prix, somme = 0, resultat = 0;
 	strcpy(fichier, "./factures/facture");
 	strcat(fichier, NNNN);
 	strcat(fichier, ".txt");
-	//printf("\t\nvoila notre nom de fac %s \t\n", fichier);//DEBUG
+	// printf("\t\nvoila notre nom de fac %s \t\n", fichier);//DEBUG
 	facture = fopen(fichier, "w");
 	commande = fopen(nomcommande, "r");
-	stock=fopen("stocks.txt", "w");
+	stock = fopen("stocks.txt", "w");
 	if (commande != NULL)
 	{
 		printf("---------------%s---------------\n", nomcommande);
 		fscanf(commande, "%s", NOM);
-		i++;
 		printf("%s\n", NOM);
-
 		printf("Client : %s \n", NOM);
 		fprintf(facture, "Client : %s \n", NOM);
-
 		do
 		{
 			fscanf(commande, "%d %d", &ref, &qt);
 			bababoi = recherchereference(ref);
 			resultat = qt * bababoi.prixU;
 			printf("%d %s  :  %f \n", qt, bababoi.libelle, resultat);
-			fprintf(facture, "%d %s  (PU=%.2f€)  :: %.2f€\n", qt, bababoi.libelle, bababoi.prixU, resultat);
-
+			fprintf(facture, "%d %s (PU=%.2f€) :: %.2f€\n", qt, bababoi.libelle, bababoi.prixU, resultat);
+			// removestock(bababoi.reference, qt);
 			somme += resultat;
 		} while (!feof(commande));
 		printf("TOTAL de Votre commande : %f \n\n", somme);
-		fprintf(facture,"\n\t\tTOTAL: %f", somme);
+		fprintf(facture, "\n\t\tTOTAL: %f", somme);
 	}
 	else
 	{
-		printf("Erreur ouverture fichier \n");
+		printf("Erreur ouverture fichier de commandes\n");
 	}
 	fclose(commande);
 	fclose(facture);
+	fclose(stock);
 }
 
 int main()
