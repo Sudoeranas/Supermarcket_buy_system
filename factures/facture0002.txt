@@ -6,3 +6,5 @@ Client : DURAND
 30 boite_100enveloppes11*21  (PU=8.70€)  :: 261.00€
 15 boite_100enveloppes30*21  (PU=14.70€)  :: 220.50€
 15 boite_100enveloppes30*21  (PU=14.70€)  :: 220.50€
+
+		TOTAL: 1309.000000

@@ -142,6 +142,30 @@ void lireCommande(char nomcommande[20], char NNNN[5])
 	fclose(facture);
 }
 
+void stockage(ref, qte){
+	int ref2, qte2;
+	FILE *commande;
+	FILE *stock;
+	stock = fopen("./stock.txt", "r+");
+	if(!stock != NULL){
+		do
+		{
+		fscanf(stock,"%d %d",ref2, qte2);
+		if (ref2 == ref)
+		{
+			qte2 = qte2-qte;
+			if (qte2<0){
+
+			}
+		}
+		
+		} while (!feof(stock));
+		
+	}
+
+
+}
+
 int main()
 {
 	// creation d'un fichier d'un seul int nommé nextFact et contenant l'int 1
