@@ -123,7 +123,13 @@ void lireCommande(char nomcommande[20])
 	fclose(commande);
 }
 
-void recherchereference(){
+void recherchereference(ref){
+	FILE *produits;
+	produits = fopen("produits.txt", "r");
+	do
+	{
+		/* code */
+	} while (feof);
 	
 }
 
