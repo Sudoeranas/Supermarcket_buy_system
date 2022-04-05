@@ -121,7 +121,7 @@ void lireCommande(char nomcommande[20])
 		if (commande != NULL)
 		{
 			fprintf(facture, "Client : %s", NOM);
-			printf("Client : %s, NOM");
+			printf("Client : %s, NOM");//
 		}
 		do
 		{
