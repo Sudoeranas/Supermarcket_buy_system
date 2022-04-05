@@ -82,6 +82,7 @@ void lireCommande(char nomcommande[20])
 	FILE *commande;
 	FILE *facture;
 	FILE *produits;
+	T_Produit bababoi;
 	int N = lireProchaineCommande();
 	char facture[TAILLE];
 	char commande[TAILLE];
@@ -94,6 +95,7 @@ void lireCommande(char nomcommande[20])
 	convertirNenChaine4(N, NNNN);
 	strcat(facture, N);
 	strcat(facture, ".txt");
+	//DEBUG printf("voila notre nom de fac %s", facture);
 	facture = fopen(facture, "w");
 	commande = fopen(nomcommande, "r");
 	if (commande != NULL)
@@ -106,25 +108,25 @@ void lireCommande(char nomcommande[20])
 		prixtotal = 0;
 		if (commande != NULL)
 		{
-			fprintf(facture, "CLIENT : %s", NOM);
+			fprintf(facture, "Client : %s", NOM);
 		}
 		do
 		{
-			fscanf("%d %d",ref,qt);
-
+			fscanf("%d %d", ref, qt);
+			
 		}
 
 		while (!feof(nomcommande));
 	}
 	else
 	{
-		printf("Erreur ouverture fichier");
+		printf("Erreur ouverture fichier \n");
 	}
 	fclose(commande);
 }
 
-void recherchereference(){
-	
+void recherchereference()
+{
 }
 
 int main()
