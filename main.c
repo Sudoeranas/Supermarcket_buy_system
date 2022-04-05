@@ -125,15 +125,18 @@ void lireCommande(char nomcommande[20])
 	fclose(commande);
 }
 
-void recherchereference(ref){
-	int refe
-	char nom
-	float prix
+int recherchereference(T_Produit ref){
 	FILE *produits;
+	int refe;
+	float prix;
+	char libellee[TAILLE];
 	produits = fopen("produits.txt", "r");
 	do
 	{
-		fscanf("%d %s %f",refe,nom,prix)
+		fscanf("%d %s %f",&refe,&libellee,&prix);
+		if(ref.reference==refe){
+			
+		}
 	} while (!feof("produits.txt"));
 	
 }
