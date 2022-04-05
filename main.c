@@ -12,7 +12,7 @@ int lireProchaineCommande() // pour lire l'int contenu dans nextFact
 	fread(&N, sizeof(int), 1, f);
 
 	fclose(f);
-	// printf("\n--->lu N=%d",N);
+	printf("\n--->lu N=%d", N);
 	return N;
 }
 // test
@@ -49,12 +49,12 @@ void lireLesCommandes() // cette fonction ouvre tous les fichiers commandeXXXX.t
 	{
 		strcpy(nomCommande, "./commandes/commande");
 		convertirNenChaine4(N, NNNN);
-		// printf("\n==>%s<==",NNNN);
+		printf("\n==>%s<==", NNNN);
 		ficCommande = NULL;
 		strcat(nomCommande, NNNN);
 		strcat(nomCommande, ".txt");
 
-		// printf("\n traitement de  %s",nomCommande);
+		printf("\n traitement de  %s", nomCommande);
 
 		ficCommande = fopen(nomCommande, "rt");
 		if (ficCommande != NULL)
@@ -79,26 +79,24 @@ void lireLesCommandes() // cette fonction ouvre tous les fichiers commandeXXXX.t
 
 void lireCommande(char nomcommande[20])
 {
-    FILE *commande;
-    FILE *facture;
-    FILE *produits;
+	FILE *commande;
+	FILE *facture;
+	FILE *produits;
 	int N = lireProchaineCommande();
-    char facture[TAILLE];
+	char facture[TAILLE];
 	char commande[TAILLE];
 	char NOM[TAILLE] = "";
 	char libelle[TAILLE] = "";
-	strcpy(facture,"./factures/facture");
-	strcat(facture,N);
-	strcat(facture,".txt");
+	strcpy(facture, "./factures/facture");
+	strcat(facture, N);
+	strcat(facture, ".txt");
 	facture = fopen(facture, "w");
-	commande= fopen(nomcommande, "r");
+	commande = fopen(nomcommande, "r");
 	do
 	{
-		
-		
+
 	} while (!feof(nomcommande));
 	fclose(commande);
-	
 }
 
 int main()
