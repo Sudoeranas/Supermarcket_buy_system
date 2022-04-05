@@ -113,7 +113,7 @@ void lireCommande(char nomcommande[20])
 		do
 		{
 			fscanf("%d %d", ref, qt);
-			
+
 		}
 
 		while (!feof(nomcommande));
@@ -125,8 +125,14 @@ void lireCommande(char nomcommande[20])
 	fclose(commande);
 }
 
-void recherchereference()
-{
+void recherchereference(ref){
+	FILE *produits;
+	produits = fopen("produits.txt", "r");
+	do
+	{
+		/* code */
+	} while (feof);
+	
 }
 
 int main()
