@@ -15,4 +15,6 @@ typedef T_Produit T_TableauDeProduits[ NB_MAX_PRODUITS];
 int lireProchaineCommande();
 void convertirNenChaine4(int N, char *N4);
 void lireLesCommandes();
+void stockage(int refe, int qte);
+void alerte(int ref, int qte);
 void lireCommande(char *nomcommande, char NNNN[5]);
