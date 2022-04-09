@@ -12,7 +12,7 @@ int lireProchaineCommande() // pour lire l'int contenu dans nextFact
 	fread(&N, sizeof(int), 1, f);
 
 	fclose(f);
-	printf("\n--->lu N=%d", N);
+	//printf("\n--->lu N=%d", N);
 	return N;
 }
 // test
@@ -67,7 +67,6 @@ void lireLesCommandes() // cette fonction ouvre tous les fichiers commandeXXXX.t
 		{
 			printf("\n toutes les commandes presentes ont ete traitees. \n");
 			FILE *f = fopen("nextFact", "w"); // on va ecrire la valeur de N dans enxtFact
-			// pour
 			fwrite(&N, 1, sizeof(int), f);
 			fclose(f);
 			FINI = 1;
@@ -77,19 +76,19 @@ void lireLesCommandes() // cette fonction ouvre tous les fichiers commandeXXXX.t
 	} while (FINI == 0);
 }
 
-T_Produit recherchereference(int ref)
+T_Produit recherchereference(int ref) // fonction pour rechercher un produit d'une commande dans le fichier produits.txt
 {
 	FILE *produits;
 	T_Produit result;
-	produits = fopen("produits.txt", "r");
+	produits = fopen("produits.txt", "r"); // ouvrir le fichier produits.txt en mode lecture seule
 	do
 	{
-		fscanf(produits, "%d %s %f", &result.reference, result.libelle, &result.prixU);
-		if (ref == result.reference)
+		fscanf(produits, "%d %s %f", &result.reference, result.libelle, &result.prixU); // récupérer à chaque fois la réference , le libellé, le prix
+		if (ref == result.reference) // si on a trouvé une correspondance du produit recherché 
 		{
-			return result;
+			return result; // on stock le fichier trouvé dans une variable type T_produit
 		}
-	} while (!feof(produits));
+	} while (!feof(produits)); // tant qu'on est pas arrivé à la fin du fichier contenant tous les produits qu'on recherche
 }
 
 void stockage(int refe, int qte) // nous fonctionnons avec un sytème de fichier_bis afin de ne pas avoir de problèmes lors de la modufication de valeur (ex: un 90 qui devient 900 car avant 90 on était dans un nombre à 3 chiffres), ainsi nous faisons un "copié" "collé" et modifions la valeur quand il s'agit du produit concerné
@@ -179,37 +178,28 @@ void lireCommande(char nomcommande[20], char NNNN[5])
 	FILE *facture;
 	FILE *produits;
 	T_Produit bababoi;
-	int N = lireProchaineCommande();
 	char NOM[TAILLE] = "";
-	char libelle[TAILLE] = "";
 	int i = 0, ref = 0, qt = 0;
 	float prix, somme = 0, resultat = 0;
 	strcpy(fichier, "./factures/facture");
 	strcat(fichier, NNNN);
-	strcat(fichier, ".txt");
-	// printf("\t\nvoila notre nom de fac %s \t\n", fichier);//DEBUG
+	strcat(fichier, ".txt"); //
 	facture = fopen(fichier, "w");
 	commande = fopen(nomcommande, "r");
 	if (commande != NULL)
 	{
-		// printf("---------------%s---------------\n", nomcommande);
 		fscanf(commande, "%s", NOM);
-		i++;
-		// printf("%s\n", NOM);
-
 		printf("Client : %s \n", NOM);
 		fprintf(facture, "Client : %s \n", NOM);
-
-		do
+		do // tant qu'on a pas fini la lecture du fichier 
 		{
-			fscanf(commande, "%d %d", &ref, &qt);
-			bababoi = recherchereference(ref);
-			resultat = qt * bababoi.prixU;
-			printf("%d %s  :  %f \n", qt, bababoi.libelle, resultat);
-			// fprintf(facture, "%d %s  :  %f \n", qt, bababoi.libelle, resultat);
-			fprintf(facture, "%d %s  (PU=%.2f€)  :: %.2f€\n", qt, bababoi.libelle, bababoi.prixU, resultat);
-			stockage(ref, qt);
-			somme += resultat;
+			fscanf(commande, "%d %d", &ref, &qt); // récupérer la référence et la quantité 
+			bababoi = recherchereference(ref); // rechercher la correspondance de la référence dans les produits existant.
+			resultat = qt * bababoi.prixU; //  prix total prix unité multiplié fois la quantité
+			printf("%d %s  :  %f \n", qt, bababoi.libelle, resultat); // citer les commandes traitées au fur et à mesure de la création de la facture
+			fprintf(facture, "%d %s  (PU=%.2f€)  :: %.2f€\n", qt, bababoi.libelle, bababoi.prixU, resultat); // écriture de la facture, la quantité l'article le prix - et total
+			stockage(ref, qt); // au fur et à mesure on consomme donc on réduit le stockage qu'on a .
+			somme += resultat; // on cumule la somme des articles et leur prix, pour un prix total de la commande
 		} while (!feof(commande));
 		printf("TOTAL de Votre commande : %f \n\n", somme);
 		fprintf(facture, "\n\t\tTOTAL: %f", somme);
@@ -236,9 +226,9 @@ int main()
 	// PARTIE 1 du TP : sans Gestion de stock
 	lireLesCommandes(); // lecture de tous les fichiers commandeXXX.txt (fichiers non traités jusqu'ici)
 
-	// PARTIE 2 du TP : avec Gestion de stock
-	// copiez coller votre travail précédent puis modifiez le
-	// lireLesCommandes2();
+	// Partie 2 : 
+	// On a tout effectué au fur et à mesure dans la fonction lireLesCommandes() .
+	// La gestion de stock se fait au fur et à mesure dans le fichier stock.txt
 
 	return 0;
 }
