@@ -54,12 +54,12 @@ void lireLesCommandes() // cette fonction ouvre tous les fichiers commandeXXXX.t
 		strcat(nomCommande, NNNN);
 		strcat(nomCommande, ".txt");
 
-		//printf("\n traitement de  %s", nomCommande);
+		// printf("\n traitement de  %s", nomCommande);
 
 		ficCommande = fopen(nomCommande, "rt");
 		if (ficCommande != NULL)
 		{ // le fichier commandeNNNN.txt existe
-			//printf("\n fichier %s present", nomCommande);
+			// printf("\n fichier %s present", nomCommande);
 			lireCommande(nomCommande, NNNN); // à vous de coder cette fonction lors de ce TP10
 			fclose(ficCommande);
 		}
@@ -92,7 +92,7 @@ T_Produit recherchereference(int ref)
 	} while (!feof(produits));
 }
 
-void stockage(int refe,int qte)//nous fonctionnons avec un sytème de fichier_bis afin de ne pas avoir de problèmes lors de la modufication de valeur (ex: un 90 qui devient 900 car avant 90 on était dans un nombre à 3 chiffres), ainsi nous faisons un "copié" "collé" et modifions la valeur quand il s'agit du produit concerné
+void stockage(int refe, int qte) // nous fonctionnons avec un sytème de fichier_bis afin de ne pas avoir de problèmes lors de la modufication de valeur (ex: un 90 qui devient 900 car avant 90 on était dans un nombre à 3 chiffres), ainsi nous faisons un "copié" "collé" et modifions la valeur quand il s'agit du produit concerné
 {
 	int ref2, qte2, ref3;
 	FILE *commande;
@@ -105,62 +105,72 @@ void stockage(int refe,int qte)//nous fonctionnons avec un sytème de fichier_bi
 		do
 		{
 			fscanf(stock, "%d %d", &ref2, &qte2);
-			if (ref3 == ref2) break;//utilisé pour régler le problème d'une boucle en trop
-			ref3 = ref2;//utilisé pour régler le problème d'une boucle en trop
-			if (ref2 == refe) {
+			if (ref3 == ref2)
+				break;	 // utilisé pour régler le problème d'une boucle en trop
+			ref3 = ref2; // utilisé pour régler le problème d'une boucle en trop
+			if (ref2 == refe)
+			{
 				qte2 = qte2 - qte;
-				if (qte2 < 0){ //si rupture de stock
-					alerte(ref2, qte2);//pour alerter d'une rupture de stock dans alerte.txt
-				}				
-					fprintf(stock_bis,"%d %d \n", ref2, qte2);	
+				if (qte2 < 0)
+				{						// si rupture de stock
+					alerte(ref2, qte2); // pour alerter d'une rupture de stock dans alerte.txt
+				}
+				fprintf(stock_bis, "%d %d \n", ref2, qte2);
 			}
-			else{
-				fprintf(stock_bis,"%d %d \n", ref2, qte2);
+			else
+			{
+				fprintf(stock_bis, "%d %d \n", ref2, qte2);
 			}
 		} while (!feof(stock));
-	fclose (stock_bis);
-	fclose (stock);
-	system("mv stock_bis.txt stock.txt"); //pour écraser stock_bis.txt dans stock.txt, avec le nouveau nom stock.txt
+		fclose(stock_bis);
+		fclose(stock);
+		system("mv stock_bis.txt stock.txt"); // pour écraser stock_bis.txt dans stock.txt, avec le nouveau nom stock.txt
 	}
 }
 
-void alerte(int ref, int qte){
-		FILE *alerte;
-		FILE *alerte_bis;
-		int ref2, qte2, ref3, flag=0;
+void alerte(int ref, int qte)
+{
+	FILE *alerte;
+	FILE *alerte_bis;
+	int ref2, qte2, ref3, flag = 0;
 
-	alerte = fopen("alerte.txt", "r"); //on ouvre en "r" car nous allons tester s'il existe déjà, s'il n'existe pas alors il va valoir NULL
+	alerte = fopen("alerte.txt", "r"); // on ouvre en "r" car nous allons tester s'il existe déjà, s'il n'existe pas alors il va valoir NULL
 
-	if (alerte == NULL) {//si alerte.txt n'existe pas
+	if (alerte == NULL)
+	{ // si alerte.txt n'existe pas
 		alerte = fopen("alerte.txt", "w");
 		fprintf(alerte, "%d %d \n", ref, -qte);
-		fclose (alerte);
+		fclose(alerte);
 	}
-	else{
+	else
+	{
 		fclose(alerte);
 		alerte = fopen("alerte.txt", "r+");
-		alerte_bis = fopen("alerte_bis.txt","w");
-		flag=0;//pour savoir si nous avons trouvé une correspondance
-		do //parcour de alerte.txt
+		alerte_bis = fopen("alerte_bis.txt", "w");
+		flag = 0; // pour savoir si nous avons trouvé une correspondance
+		do		  // parcour de alerte.txt
 		{
 			fscanf(alerte, "%d %d", &ref2, &qte2);
-				if (ref2 == ref3) break; //utilisé pour régler le problème d'une boucle en trop
-				ref3 = ref2 ;//utilisé pour régler le problème d'une boucle en trop
-				if (ref2 == ref){//le cas où nous avons la référence correspondante
+			if (ref2 == ref3)
+				break;	 // utilisé pour régler le problème d'une boucle en trop
+			ref3 = ref2; // utilisé pour régler le problème d'une boucle en trop
+			if (ref2 == ref)
+			{ // le cas où nous avons la référence correspondante
 				fprintf(alerte_bis, "%d %d \n", ref, -qte);
-				flag=1;
-				}
-				else{//le cas où nous avons pas la référence correspondante
-					fprintf(alerte_bis, "%d %d \n", ref2, qte2);
-				}
+				flag = 1;
+			}
+			else
+			{ // le cas où nous avons pas la référence correspondante
+				fprintf(alerte_bis, "%d %d \n", ref2, qte2);
+			}
 		} while (!feof(alerte));
-		if (flag == 0) fprintf(alerte_bis, "%d %d", ref, -qte); //si aucune correspondance nous ajoutons alors la nouvelle alerte d'où utilité du flag
-		fclose (alerte_bis);
-		fclose (alerte);
-		system("mv alerte_bis.txt alerte.txt"); //pour écraser alerte_bis.txt dans alerte.txt, avec le nouveau nom alerte.txt
+		if (flag == 0)
+			fprintf(alerte_bis, "%d %d", ref, -qte); // si aucune correspondance nous ajoutons alors la nouvelle alerte d'où utilité du flag
+		fclose(alerte_bis);
+		fclose(alerte);
+		system("mv alerte_bis.txt alerte.txt"); // pour écraser alerte_bis.txt dans alerte.txt, avec le nouveau nom alerte.txt
 	}
 }
-
 
 void lireCommande(char nomcommande[20], char NNNN[5])
 {
@@ -182,10 +192,10 @@ void lireCommande(char nomcommande[20], char NNNN[5])
 	commande = fopen(nomcommande, "r");
 	if (commande != NULL)
 	{
-		//printf("---------------%s---------------\n", nomcommande);
+		// printf("---------------%s---------------\n", nomcommande);
 		fscanf(commande, "%s", NOM);
 		i++;
-		//printf("%s\n", NOM);
+		// printf("%s\n", NOM);
 
 		printf("Client : %s \n", NOM);
 		fprintf(facture, "Client : %s \n", NOM);
@@ -198,7 +208,7 @@ void lireCommande(char nomcommande[20], char NNNN[5])
 			printf("%d %s  :  %f \n", qt, bababoi.libelle, resultat);
 			// fprintf(facture, "%d %s  :  %f \n", qt, bababoi.libelle, resultat);
 			fprintf(facture, "%d %s  (PU=%.2f€)  :: %.2f€\n", qt, bababoi.libelle, bababoi.prixU, resultat);
-			stockage (ref, qt);
+			stockage(ref, qt);
 			somme += resultat;
 		} while (!feof(commande));
 		printf("TOTAL de Votre commande : %f \n\n", somme);
