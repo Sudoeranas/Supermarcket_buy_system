@@ -7,5 +7,3 @@ exe : main.c prod.h
 clean :
 	rm -rf exe alerte.txt
 	cp stock_de_base.txt stock.txt
-	rm -r factures
-	mkdir factures
