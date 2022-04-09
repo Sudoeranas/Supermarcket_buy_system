@@ -12,7 +12,7 @@ int lireProchaineCommande() // pour lire l'int contenu dans nextFact
 	fread(&N, sizeof(int), 1, f);
 
 	fclose(f);
-	// printf("\n--->lu N=%d", N);
+	printf("\n--->lu N=%d", N);
 	return N;
 }
 // test
